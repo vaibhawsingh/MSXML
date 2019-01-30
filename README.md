@@ -93,3 +93,33 @@ XML Operation using C++ and MSXML
   //spXMLDecl is object of type MSXML2::IXMLDOMProcessingInstructionPtr
   spDocOutput->appendChild(spXMLDecl);
 </code></pre>
+  **Step 4 :** create DOM object of Element Pointer of interface **MSXML2::IXMLDOMElementPtr**.
+<pre><code>
+   spElemRoot = spDocOutput->createElement("AOI");
+   //spElemRoot is object of type MSXML2::IXMLDOMElementPtr
+   spDocOutput->appendChild(spElemRoot);
+</code></pre>
+  **Step 5 :** To add element and its value call the function **AddAttrToXml()**.
+<pre><code>
+bool AddAttrToXml(const MSXML2::IXMLDOMElementPtr spElem, std::wstring attrData, std::wstring attrVal)
+{
+	VARIANT varVal;
+	VariantInit(&varVal);
+	varVal.vt = VT_BSTR;
+	// given std::wstring ws
+	//NodeName
+	varVal.bstrVal = SysAllocStringLen(attrVal.data(), (UINT)attrVal.size());
+	HRESULT hr = spElem->setAttribute(attrData.c_str(), varVal);
+
+	SysFreeString(varVal.bstrVal);
+
+	if (SUCCEEDED(hr))
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
+}
+</code></pre>
