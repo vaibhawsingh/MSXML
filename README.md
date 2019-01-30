@@ -57,10 +57,10 @@ XML Operation using C++ and MSXML
   Directly one can use function **GetChilds()**.
 
 <pre><code>
- std::vector&lt;MSXML2::IXMLDOMNodePtr&gt; GetChilds(const MSXML2::IXMLDOMNodePtr &nodeptr)
+ std::vector&lt;MSXML2::IXMLDOMNodePtr&gt; GetChilds(const MSXML2::IXMLDOMNodePtr &nodePtr)
  {
 	std::vector&lt;MSXML2::IXMLDOMNodePtr&gt; vctr;
-	MSXML2::IXMLDOMNodeListPtr lstPtr = nodeptr->childNodes;
+	MSXML2::IXMLDOMNodeListPtr lstPtr = nodePtr->childNodes;
 	if (lstPtr)
 	{
 		int count = lstPtr->length;
@@ -68,8 +68,8 @@ XML Operation using C++ and MSXML
 		{
 			for (int i = 0; i < count; i++)
 			{
-				MSXML2::IXMLDOMNodePtr nodeptr = lstPtr->item[i];
-				vctr.push_back(nodeptr);
+				MSXML2::IXMLDOMNodePtr nodePtr = lstPtr->item[i];
+				vctr.push_back(nodePtr);
 			}
 		}
 	}
