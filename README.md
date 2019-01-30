@@ -7,6 +7,8 @@ XML Operation using C++ and MSXML
  
  [3. Reading List of Data](#3-reading-list-of-data)
  
+ [4. Writing XML file](#4-writing-xml-file)
+ 
  
 
 --------------------------------------------------------------------------------------------------------------------------------
@@ -75,4 +77,18 @@ XML Operation using C++ and MSXML
 	}
 	return vctr;
  }
+</code></pre>
+ ## 4. Writing XML file ##
+ 
+  **Step 1 :** Create object of interface **MSXML2::IXMLDOMDocument2Ptr**.
+  **Step 2 :** Create the COM DOM object.
+<pre><code>
+  spDocOutput.CreateInstance(__uuidof(MSXML2::DOMDocument60));
+  //spDocOutput is object of type MSXML2::IXMLDOMDocument2Ptr
+</code></pre>
+  **Step 3 :** Create Processing Instruction object of interface **MSXML2::IXMLDOMProcessingInstructionPtr**.
+<pre><code>
+//spXMLDecl is object of type MSXML2::IXMLDOMProcessingInstructionPtr
+  spXMLDecl = spDocOutput->createProcessingInstruction("xml", "version=\"1.0\" encoding=\"euc-kr\" standalone=\"yes\" ");
+  spDocOutput->appendChild(spXMLDecl);
 </code></pre>
