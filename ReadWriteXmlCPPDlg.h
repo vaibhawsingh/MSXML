@@ -35,10 +35,14 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	bool ReadXml();
+	bool WriteXml(const std::wstring &strFileName);
+	bool AddAttrToXml(const MSXML2::IXMLDOMElementPtr Elem, std::wstring attrData, std::wstring attrVal);
 	afx_msg void OnBnClickedBtnDisp();
 	CMFCEditBrowseCtrl m_ctrlXmlFileName;
 	CListCtrl m_lstCtrl;
 	CString m_strXmlFileName;
 	bool GetAttribute(const MSXML2::IXMLDOMNodePtr &nodePtr, const std::wstring &data, std::wstring &val);
 	std::vector<MSXML2::IXMLDOMNodePtr> GetChilds(const MSXML2::IXMLDOMNodePtr &nodeptr);
+	CString m_strFileCreatePath;
+	afx_msg void OnBnClickedBtnWrite();
 };
