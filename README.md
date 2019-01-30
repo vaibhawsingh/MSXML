@@ -42,9 +42,9 @@ XML Operation using C++ and MSXML
   Directly one can use function **GetChilds()**.
 
 <pre><code>
- std::vector<MSXML2::IXMLDOMNodePtr> GetChilds(const MSXML2::IXMLDOMNodePtr &nodeptr)
-{
-	std::vector<MSXML2::IXMLDOMNodePtr> vctr;
+ std::vector&lt;MSXML2::IXMLDOMNodePtr&gt; GetChilds(const MSXML2::IXMLDOMNodePtr &nodeptr)
+ {
+	std::vector&lt;MSXML2::IXMLDOMNodePtr&gt; vctr;
 	MSXML2::IXMLDOMNodeListPtr lstPtr = nodeptr->childNodes;
 	if (lstPtr)
 	{
@@ -59,5 +59,5 @@ XML Operation using C++ and MSXML
 		}
 	}
 	return vctr;
-}
+ }
 </code></pre>
