@@ -1,6 +1,16 @@
-# MSXML
+# MSXML 
 XML Operation using C++ and MSXML
 
+ [1. Basic Operation](#1-basic-operation)
+ 
+ [2. Reading List of Data](#2-reading-list-of-data)
+ 
+ 
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+ ## 1. Basic Operation ##
+ 
   **Step 1 :** Import msxml.dll to your application. for this application I have imported msxml6.dll.
   
   **Step 2 :** Before calling/using any of the msxml function you need to call the function **coinitialize(NULL)**.
@@ -22,3 +32,4 @@ XML Operation using C++ and MSXML
   
   **Step 9 :** create a variable of type **\_bstr_t** to receive the nodeValue, and then using **copy()** function we can get the data in wstring format.
   
+## 2. Reading List of Data ##
