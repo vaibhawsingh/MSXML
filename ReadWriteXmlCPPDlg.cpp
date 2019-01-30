@@ -6,8 +6,8 @@
 #include "ReadWriteXmlCPP.h"
 #include "ReadWriteXmlCPPDlg.h"
 #include "afxdialogex.h"
-#import "msxml6.dll"
-#include <string>
+
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -176,7 +176,7 @@ void CReadWriteXmlCPPDlg::OnBnClickedBtnDisp()
 bool CReadWriteXmlCPPDlg::ReadXml()
 {
 	std::wstring wstrFilePath = m_strXmlFileName;
-	
+	bool bValid = true;
 	
 		CoInitialize(NULL);
 		MSXML2::IXMLDOMDocument2Ptr  pDocument = MSXML2::IXMLDOMDocument2Ptr(__uuidof(MSXML2::DOMDocument60));
@@ -191,10 +191,77 @@ bool CReadWriteXmlCPPDlg::ReadXml()
 		if (FAILED(hr))
 		{
 			MessageBox(L"XML File is empty");
+			bValid = FALSE;
+			return bValid;
 		}
 
 		MSXML2::IXMLDOMNodePtr pXmldoc = pDocument;
 		if (pXmldoc)
+		{
+			std::wstring strSourceTag = L"AOI";
+			
+			MSXML2::IXMLDOMNodePtr c_pXmlRootNode = pXmldoc->selectSingleNode(strSourceTag.c_str());
+			if (!c_pXmlRootNode)
+			{
+				bValid = FALSE;
+				return bValid;
+			}
+			std::wstring strPath = L"CAMERA";
+			MSXML2::IXMLDOMNodePtr nodeptr = c_pXmlRootNode->selectSingleNode(strPath.c_str());
+
+			std::vector<MSXML2::IXMLDOMNodePtr> vctr;
+
+			vctr = GetChilds(nodeptr);
+			MSXML2::IXMLDOMNodePtr pnodePtr;
+			std::wstring wstrDataType, wstrDataValType;
+			//iterate and read the data from list 
+			for (auto itr = vctr.begin(); itr != vctr.end(); itr++)
+			{
+				std::wstring strPath1 = L"Property";
+				pnodePtr = (*itr);
+				wstrDataType = L"Comment";
+				if (GetAttribute(pnodePtr, wstrDataType, wstrDataValType))
+				{
+					std::wstring st = wstrDataValType;
+				}
+			}
+			
+		}
 	
-	
+		return TRUE;
+}
+
+bool CReadWriteXmlCPPDlg::GetAttribute(const MSXML2::IXMLDOMNodePtr &nodePtr,const std::wstring &data, std::wstring &val)
+{
+	MSXML2::IXMLDOMNodePtr node = nodePtr;
+	MSXML2::IXMLDOMNamedNodeMapPtr nodeMapPtr;
+	nodeMapPtr = node->attributes;
+	_bstr_t  value;
+	MSXML2::IXMLDOMNodePtr node1 = nodeMapPtr->getNamedItem(data.data());
+	if (node1 == nullptr)
+	{
+		return FALSE;
+	}
+	value = node1->nodeValue;
+	val = value.copy(FALSE);
+	return true;
+}
+
+std::vector<MSXML2::IXMLDOMNodePtr> CReadWriteXmlCPPDlg::GetChilds(const MSXML2::IXMLDOMNodePtr &nodeptr)
+{
+	std::vector<MSXML2::IXMLDOMNodePtr> vctr;
+	MSXML2::IXMLDOMNodeListPtr lstPtr = nodeptr->childNodes;
+	if (lstPtr)
+	{
+		int count = lstPtr->length;
+		if (count > 0)
+		{
+			for (int i = 0; i < count; i++)
+			{
+				MSXML2::IXMLDOMNodePtr nodeptr = lstPtr->item[i];
+				vctr.push_back(nodeptr);
+			}
+		}
+	}
+	return vctr;
 }
