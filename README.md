@@ -35,7 +35,22 @@ XML Operation using C++ and MSXML
   **Step 2 :** using object of interface **MSXML2::IXMLDOMNamedNodeMapPtr** call **getNamedItem()** by passing tag name of the current located Node.
   
   **Step 3 :** create a variable of type **\_bstr_t** to receive the nodeValue, and then using **copy()** function we can get the data in wstring format.
-  
+<pre><code>
+  bool GetAttribute(const MSXML2::IXMLDOMNodePtr &nodePtr,const std::wstring &Attrdata, std::wstring &Attrval)
+  {
+	MSXML2::IXMLDOMNamedNodeMapPtr nodeMapPtr;
+	nodeMapPtr = nodePtr->attributes;
+	_bstr_t  value;
+	MSXML2::IXMLDOMNodePtr node = nodeMapPtr->getNamedItem(Attrdata.data());
+	if (node == nullptr)
+	{
+		return FALSE;
+	}
+	value = node->nodeValue;
+	Attrval = value.copy(FALSE);
+	return true;
+  }
+</code></pre>
 ## 3. Reading List of Data ##
 
   **Step 1 :** Create Object of interface **MSXML2::IXMLDOMNodeListPtr** and initialize with **nodeptr->childNodes** where **nodeptr** is object of **MSXML2::IXMLDOMNodePtr** initialized with **SelectSingleNode()** function.
