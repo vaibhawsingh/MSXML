@@ -36,4 +36,28 @@ XML Operation using C++ and MSXML
   
   **Step 3 :** create a variable of type **\_bstr_t** to receive the nodeValue, and then using **copy()** function we can get the data in wstring format.
   
-## 2. Reading List of Data ##
+## 3. Reading List of Data ##
+
+  **Step 1 :** Create Object of interface **MSXML2::IXMLDOMNodeListPtr** and initialize with **nodeptr->childNodes** where **nodeptr** is object of **MSXML2::IXMLDOMNodePtr** initialized with **SelectSingleNode()** function.
+  Directly one can use function **GetChilds()**.
+
+<pre><code>
+ std::vector<MSXML2::IXMLDOMNodePtr> GetChilds(const MSXML2::IXMLDOMNodePtr &nodeptr)
+{
+	std::vector<MSXML2::IXMLDOMNodePtr> vctr;
+	MSXML2::IXMLDOMNodeListPtr lstPtr = nodeptr->childNodes;
+	if (lstPtr)
+	{
+		int count = lstPtr->length;
+		if (count > 0)
+		{
+			for (int i = 0; i < count; i++)
+			{
+				MSXML2::IXMLDOMNodePtr nodeptr = lstPtr->item[i];
+				vctr.push_back(nodeptr);
+			}
+		}
+	}
+	return vctr;
+}
+<\code><\pre>
