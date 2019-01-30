@@ -124,6 +124,10 @@ bool AddAttrToXml(const MSXML2::IXMLDOMElementPtr spElem, std::wstring attrData,
 }
 </code></pre>
  **Step 6 :** To save the data in XML file call the save function passing the parameter as name and path of the file as shown below.
- <pre><code>
-   spDocOutput->save(wstrFileName.c_str());
- </code></pre>
+<pre><code>
+ spDocOutput->save(wstrFileName.c_str());
+</code></pre>
+  **Step 7 :** To save the data in indented format call the function as shown below.
+pre><code>
+ spDocOutput->save(wstrFileName.c_str());
+</code></pre>
