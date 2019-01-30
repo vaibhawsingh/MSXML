@@ -52,6 +52,7 @@ END_MESSAGE_MAP()
 CReadWriteXmlCPPDlg::CReadWriteXmlCPPDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CReadWriteXmlCPPDlg::IDD, pParent)
 	, m_strXmlFileName(_T(""))
+	, m_strFileCreatePath(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -62,6 +63,7 @@ void CReadWriteXmlCPPDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_MFCEDITBROWSE_FILE, m_ctrlXmlFileName);
 	DDX_Control(pDX, IDC_LST_DISP_DATA, m_lstCtrl);
 	DDX_Text(pDX, IDC_MFCEDITBROWSE_FILE, m_strXmlFileName);
+	DDX_Text(pDX, IDC_MFCEDITBROWSE_FILE_CREATE, m_strFileCreatePath);
 }
 
 BEGIN_MESSAGE_MAP(CReadWriteXmlCPPDlg, CDialogEx)
@@ -69,6 +71,7 @@ BEGIN_MESSAGE_MAP(CReadWriteXmlCPPDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BTN_DISP, &CReadWriteXmlCPPDlg::OnBnClickedBtnDisp)
+	ON_BN_CLICKED(IDC_BTN_Write, &CReadWriteXmlCPPDlg::OnBnClickedBtnWrite)
 END_MESSAGE_MAP()
 
 
@@ -173,6 +176,11 @@ void CReadWriteXmlCPPDlg::OnBnClickedBtnDisp()
 	}
 }
 
+
+
+
+
+
 bool CReadWriteXmlCPPDlg::ReadXml()
 {
 	std::wstring wstrFilePath = m_strXmlFileName;
@@ -206,7 +214,7 @@ bool CReadWriteXmlCPPDlg::ReadXml()
 				bValid = FALSE;
 				return bValid;
 			}
-			std::wstring strPath = L"CAMERA";
+			std::wstring strPath = L"MISCELLANEOUS";
 			MSXML2::IXMLDOMNodePtr nodeptr = c_pXmlRootNode->selectSingleNode(strPath.c_str());
 
 			std::vector<MSXML2::IXMLDOMNodePtr> vctr;
@@ -264,4 +272,71 @@ std::vector<MSXML2::IXMLDOMNodePtr> CReadWriteXmlCPPDlg::GetChilds(const MSXML2:
 		}
 	}
 	return vctr;
+}
+
+void CReadWriteXmlCPPDlg::OnBnClickedBtnWrite()
+{
+	// TODO: Add your control notification handler code here
+	UpdateData(TRUE);
+	if (!m_strFileCreatePath.IsEmpty())
+	{
+		std::wstring strFileName = m_strFileCreatePath + L"\\" + L"Output.xml";
+		WriteXml(strFileName);
+	}
+}
+
+bool CReadWriteXmlCPPDlg::WriteXml(const std::wstring &wstrFileName)
+{
+	HRESULT hResult = S_OK;
+	MSXML2::IXMLDOMDocument2Ptr spDocOutput;
+	MSXML2::IXMLDOMProcessingInstructionPtr spXMLDecl;
+	MSXML2::IXMLDOMElementPtr spElemRoot, spElemCamera, spProperty, spExample;
+	// Create the COM DOM Document object
+	hResult = spDocOutput.CreateInstance(__uuidof(MSXML2::DOMDocument60));
+	if FAILED(hResult)
+	{
+		//cerr << "Failed to create Document instance" << endl;
+		return FALSE;
+	}
+	spXMLDecl = spDocOutput->createProcessingInstruction("xml", "version=\"1.0\" encoding=\"euc-kr\" standalone=\"yes\" ");
+	spDocOutput->appendChild(spXMLDecl);
+
+	spElemRoot = spDocOutput->createElement("AOI");
+	spDocOutput->appendChild(spElemRoot);
+
+	spElemCamera = spDocOutput->createElement("Camera");
+	spElemRoot->appendChild(spElemCamera);
+
+	spProperty = spDocOutput->createElement("Property");
+	spElemCamera->appendChild(spProperty);
+
+	AddAttrToXml(spProperty, L"JMV", L"JMD");
+
+	spExample = spDocOutput->createElement("Example");
+	spElemCamera->appendChild(spExample);
+
+	hResult = spDocOutput->save(wstrFileName.c_str());
+	return TRUE;
+}
+
+bool CReadWriteXmlCPPDlg::AddAttrToXml(const MSXML2::IXMLDOMElementPtr spElem, std::wstring attrData, std::wstring attrVal)
+{
+	VARIANT varVal;
+	VariantInit(&varVal);
+	varVal.vt = VT_BSTR;
+	// given std::wstring ws
+	//NodeName
+	varVal.bstrVal = SysAllocStringLen(attrVal.data(), (UINT)attrVal.size());
+	HRESULT hr = spElem->setAttribute(attrData.c_str(), varVal);
+
+	SysFreeString(varVal.bstrVal);
+
+	if (SUCCEEDED(hr))
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
 }
