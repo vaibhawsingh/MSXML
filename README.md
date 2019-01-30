@@ -3,7 +3,9 @@ XML Operation using C++ and MSXML
 
  [1. Basic Operation](#1-basic-operation)
  
- [2. Reading List of Data](#2-reading-list-of-data)
+ [2. Reading Value of Attribute](#2-reading-value-of-attribute)
+ 
+ [3. Reading List of Data](#3-reading-list-of-data)
  
  
 
@@ -25,6 +27,8 @@ XML Operation using C++ and MSXML
   **Step 5 :** Load the xml file in raw format using function **raw_load()**.
   
   **Step 6 :** Create object of interface **MSXML2::IXMLDOMNodePtr** call the function **selectSingleNode()** by passing appropriate tag.
+  
+  ## 2. Reading Value of Attribute ##
   
   **Step 7 :** Create object of interface **MSXML2::IXMLDOMNamedNodeMapPtr** and initialize it with node Attribute.
   
