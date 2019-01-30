@@ -123,7 +123,7 @@ bool AddAttrToXml(const MSXML2::IXMLDOMElementPtr spElem, std::wstring attrData,
 	}
 }
 </code></pre>
- **Step 6 :** To save the data in file call the save function as shown below.
+ **Step 6 :** To save the data in XML file call the save function passing the parameter as name and path of the file as shown below.
  <pre><code>
    spDocOutput->save(wstrFileName.c_str());
  </code></pre>
