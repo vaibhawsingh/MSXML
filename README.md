@@ -60,4 +60,4 @@ XML Operation using C++ and MSXML
 	}
 	return vctr;
 }
-<\code><\pre>
+</code></pre>
