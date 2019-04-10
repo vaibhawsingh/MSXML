@@ -131,3 +131,54 @@ bool AddAttrToXml(const MSXML2::IXMLDOMElementPtr spElem, std::wstring attrData,
 pre><code>
  spDocOutput->save(wstrFileName.c_str());
 </code></pre>
+
+
+
+Yun to maine hazaro ladkiyon ka profile dekha,
+Unme sabse achchi mujhe aap lagi |
+Aapke Chehre pe ek kashish sa dekha,
+Mujhe sabse pyari aapki mushkan lagi |
+
+Soch kar ye kahi aap khwab to nahi,
+Maine request aapko bheja tha |
+mere naseeb me aap hain ki nahi,
+yahi soch kar mai gumsum sa baitha tha |
+
+Kismat ka ye khel dekhiye,
+Aapne request mera accept kar liya |
+upar vale ka male dekhiye,
+Dil ke darwaje par aap ne dastak bhi de diya |
+
+Sochta hoon baat kaise karu,
+Kuch baate aapse kaise kahu |
+Ye kavita to ek paigam hai,
+Vaibhaw mera naam hai |
+
+Aap chand to nahi hai,
+Kyuki usme to Daag hai |
+Aap chandni raat hai,
+Vo to bilkul shaf hai |
+Aapke Chahne vale hazaro honge,
+Chandni raat ke tare honge |
+Ek koi bada nasseb vala hoga,
+Un hazaro me ek hi vo Sitara hoga |
+
+Mai aur Tum milkar HUM ho jate,
+Sath hote to dur sare gam ho jate |
+Kash vo din kb aayega,
+Sari kaynat milkar tumhe hamse milayega |
+ 
+Gar tum mujhe na mili,
+To futi kismat hamari hogi |
+Chakori ko kya kabhi chand mili,
+Chakori si badnaseebi hamri hogi |
+
+ Sapno me bs ek hi chehra nazar aata hai,
+Juban pe naam bs aapka hi aata hai |
+Aapke rah me palke bichaunga,
+Aap han kahe to phulo ki barish karaunga |
+
+Aapke ekrar ka ya enkar ka,
+Mujhe intezar rahega Aapke jawab ka |
+Mat kijiyega faisla sikka uchchal ke,
+Ye hai dil ka mamla, jara dekha bhal ke|
