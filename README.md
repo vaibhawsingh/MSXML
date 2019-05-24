@@ -128,7 +128,7 @@ bool AddAttrToXml(const MSXML2::IXMLDOMElementPtr spElem, std::wstring attrData,
  spDocOutput->save(wstrFileName.c_str());
 </code></pre>
   **Step 7 :** To save the data in indented format call the function as shown below.
-pre><code>
+<pre><code>
  spDocOutput->save(wstrFileName.c_str());
 </code></pre>
 
